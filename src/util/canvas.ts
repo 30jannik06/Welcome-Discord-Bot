@@ -12,13 +12,13 @@
  */
 
 import Canvas from "@napi-rs/canvas";
-import { AttachmentBuilder, WebhookClient } from "discord.js";
+import { AttachmentBuilder, GuildMember, WebhookClient } from "discord.js";
 import { request } from "undici";
 //#endregion
 
 class CanvasCreator {
     async canvas(
-        user: any, //Sets the username.
+        user: GuildMember, //Sets the username.
         msg: string, // Sets the message in the Top row on the Picture.
         state: string, // Sets the ending of the picture name. Example at Row: "81".
         webhId: string, // Sets the webhookID where it should send to.
@@ -29,6 +29,7 @@ class CanvasCreator {
          */
         const canvas = Canvas.createCanvas(700, 250);
         const context = canvas.getContext("2d");
+
         /*
          * USAGE: Sets the Background of the Picture.
          * !!ATTENTION!!: The Background picture needs to be Uploaded,
@@ -70,7 +71,7 @@ class CanvasCreator {
         context.closePath();
         context.clip();
         const { body } = await request(
-            user.user.displayAvatarURL({ extension: "jpg" })
+            user.displayAvatarURL({ extension: "jpg" })
         );
         const avatar = await Canvas.loadImage(await body.arrayBuffer());
         context.drawImage(avatar, 25, 25, 200, 200);
@@ -81,7 +82,7 @@ class CanvasCreator {
          * EXAMPLE: 084820342490242-join.png <- UserID-State.png (State needs to be set in the Variable.)
          */
         const attachment = new AttachmentBuilder(await canvas.encode("png"), {
-            name: `${user.user.id}-${state}.png`,
+            name: `${user.id}-${state}.png`,
         });
 
         /*
@@ -99,7 +100,7 @@ class CanvasCreator {
     }
 }
 
-let applyText = (canvas, text) => {
+let applyText = (canvas: any, text: string) => {
     const context = canvas.getContext("2d");
     let fontSize = 70;
     do {

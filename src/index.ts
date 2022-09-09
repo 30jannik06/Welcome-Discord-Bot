@@ -1,17 +1,18 @@
-import { Client } from "discord.js";
-import { token, intents } from "./util/config";
+import { Client, ClientUser, GuildMember } from "discord.js";
+import { token, intents, partials } from "./util/config";
 import { evnt, log } from "./util/logHelper";
 import { canvas } from "./util/canvas";
 
 const client = new Client({
     intents: intents,
+    partials: partials
 });
 
 client.on("ready", () => {
-    log(`Logged in as ${client.user.tag}`);
+    log(`Logged in as ${client.user?.tag}`);
 });
 
-client.on("guildMemberAdd", async (member) => {
+client.on("guildMemberAdd", async (member: GuildMember) => {
     canvas(
         member,
         "Welcome to (SERVER NAME)", // You can type your own message.
@@ -22,7 +23,7 @@ client.on("guildMemberAdd", async (member) => {
     evnt(`${member.user.username} joined the Guild.`);
 });
 
-client.on("guildMemberRemove", async (member) => {
+client.on("guildMemberRemove", async (member: PartialGuildMember) => {
     canvas(
         member,
         "Left the Server!", // You can type your own message.
