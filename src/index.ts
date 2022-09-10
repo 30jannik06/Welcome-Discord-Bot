@@ -1,4 +1,4 @@
-import { Client, ClientUser, GuildMember } from "discord.js";
+import { Client , GuildMember} from "discord.js"
 import { token, intents, partials } from "./util/config";
 import { evnt, log } from "./util/logHelper";
 import { canvas } from "./util/canvas";
@@ -23,9 +23,9 @@ client.on("guildMemberAdd", async (member: GuildMember) => {
     evnt(`${member.user.username} joined the Guild.`);
 });
 
-client.on("guildMemberRemove", async (member: PartialGuildMember) => {
+client.on("guildMemberRemove", (member: any) => {
     canvas(
-        member,
+        member as GuildMember,
         "Left the Server!", // You can type your own message.
         "leave",
         "WEBHOOK_ID_HERE",

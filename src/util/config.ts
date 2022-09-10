@@ -1,11 +1,11 @@
 import {GatewayIntentBits, Partials} from "discord.js"
-class settings {
+class Settings {
     public token: string;
-    public intents: any[];
-    public partials: any[];
+    public intents: number[];
+    public partials: number[];
 
     constructor() {
-        this.token = "BOT_TOKEN_HERE"; // Put the Token of your Bot Here
+        this.token = "BOT_TOKEN_HERE";
         this.intents = [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildMembers,
@@ -14,9 +14,9 @@ class settings {
         this.partials = [
             Partials.Channel,
             Partials.GuildMember,
-            Partials.Message
-        ]
+            Partials.Message,
+        ];
     }
 }
 
-export const { token, intents, partials} = new settings();
+export const { token, intents, partials } = new Settings();
