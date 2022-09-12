@@ -14,6 +14,7 @@
 import Canvas from "@napi-rs/canvas";
 import { AttachmentBuilder, GuildMember, WebhookClient } from "discord.js";
 import { request } from "undici";
+import { webhookClient } from "./webhookHelper";
 //#endregion
 
 class CanvasCreator {
@@ -85,18 +86,7 @@ class CanvasCreator {
             name: `${user.id}-${state}.png`,
         });
 
-        /*
-         * USAGE: Creates a new WebhookClient to send the Message with the Welcome Picture.
-         */
-        const webhookClient = new WebhookClient({
-            id: webhId,
-            token: webhToken,
-        });
-
-        /*
-         * USAGE: Sends the Picture with the WebhookClient.
-         */
-        webhookClient.send({ files: [attachment] });
+        webhookClient(webhId, webhToken, "", [], [attachment], []);
     }
 }
 
