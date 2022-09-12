@@ -1,7 +1,7 @@
 import { Client , GuildMember} from "discord.js"
-import { token, intents, partials } from "./util/config";
-import { evnt, log } from "./util/logHelper";
-import { canvas } from "./util/canvas";
+import { token, intents, partials } from "./util/config/config";
+import { evnt, log } from "./util/helper/logHelper";
+import { canvas } from "./util/helper/canvasHelper";
 
 const client = new Client({
     intents: intents,
